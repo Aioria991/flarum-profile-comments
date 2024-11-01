@@ -1,4 +1,4 @@
-import Model from "flarum/common/Model";
+import Model from 'flarum/common/Model';
 
 export default class UserComment extends Model {
   commentTitle = Model.attribute('comment_title');

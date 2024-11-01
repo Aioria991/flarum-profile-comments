@@ -1,10 +1,11 @@
-import {ComponentAttrs} from "flarum/common/Component";
-import User from "flarum/common/models/User";
+import { ComponentAttrs } from 'flarum/common/Component';
+import User from 'flarum/common/models/User';
 
 export interface SingleCommentProps extends ComponentAttrs {
-  user: User | null
-  title: string
-  comment: string
-  commentedBy: string
-  commentedAt: Date | string
+  user: User | null;
+  title: string;
+  comment: string;
+  commentedBy: string;
+  commentedAt: Date | string;
+  relToUser: any
 }

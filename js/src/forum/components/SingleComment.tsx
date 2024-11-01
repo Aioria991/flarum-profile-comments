@@ -1,6 +1,8 @@
-import Component, {ComponentAttrs} from "flarum/common/Component";
-import Mithril from "mithril";
-import {SingleCommentProps} from "../types";
+// @ts-nocheck
+import Component, {ComponentAttrs} from 'flarum/common/Component';
+import Mithril from 'mithril';
+import {SingleCommentProps} from '../types';
+import app from 'flarum/forum/app'
 
 export default class SingleComment extends Component<SingleCommentProps> {
   oninit(vnode: Mithril.Vnode<ComponentAttrs, this>) {
@@ -12,24 +14,52 @@ export default class SingleComment extends Component<SingleCommentProps> {
   }
 
   view(vnode: Mithril.Vnode<ComponentAttrs, this>): Mithril.Children {
+    const {commented_by: user} = this.attrs.commentedBy;
+    const userInitials = this.attrs.commentedBy.commented_by.username.charAt(0).toUpperCase();
+
     return (
       <div className="profile-comment-container">
+        <div>
+          {this.attrs.commentedBy.related_to_user.toString() === app.session.user.id() && (
+            <button class="delete-comment TagLabel colored text-contrast--light">
+          <span class="TagLabel-text">
+            <span class="TagLabel-name">
+              <i class="fas fa-trash"></i>
+            </span>
+          </span>
+            </button>
+          )}
+        </div>
         <div className="profile-comments-header">
           <div className="profile-comments">
-            <img
-              className="Avatar" loading="lazy" src={this.attrs.user?.avatarUrl()}
-              alt=""/></div>
+              <img className="Avatar" loading="lazy"
+                   src={user.avatar_url || `https://placehold.co/25?text=${userInitials}`} alt=""/>
+          </div>
           <div className="profile-comment">
             <div>
-              <span>{this.attrs.title}</span>
-              <span>{this.attrs.commentedBy}</span>
+              <span>
+                <strong>{this.attrs.title}</strong>
+              </span>
             </div>
-            <p>
-              {this.attrs.comment}
-            </p>
+            <p className="profile-user-comment">{this.attrs.comment}</p>
+            <div className="profile-comments-info">
+              <span className="profile-comment-username">
+                <div className="profile-comment-info-container">
+                  <span className="profile-comment-username">
+                    <i class="fa fa-user" style={{marginRight: '5px'}}></i> {user.username}
+                  </span>
+                </div>
+              </span>
+              <span className="profile-comment-username">
+                <i class="fas fa-clock"
+                   style={{marginRight: '5px'}}></i> {this.attrs.commentedBy.createdAt.slice(0, 10)}
+              </span>
+              <span className="profile-comment-username">
+                 <i class="fas fa-comments" style={{marginRight: '5px'}}></i> {user.discussion_count.toString()}
+              </span>
+            </div>
           </div>
         </div>
-
       </div>
     );
   }
