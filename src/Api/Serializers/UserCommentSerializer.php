@@ -4,7 +4,6 @@ namespace Justoverclock\ProfileComments\Api\Serializers;
 
 
 use Flarum\Api\Serializer\AbstractSerializer;
-use Flarum\Api\Serializer\UserSerializer;
 
 class UserCommentSerializer extends AbstractSerializer
 {
@@ -14,21 +13,23 @@ class UserCommentSerializer extends AbstractSerializer
     {
         return [
             'id' => $model->id,
+            'related_to_user' => $model->user_id,
             'comment_title' => $model->comment_title,
             'comment' => $model->comment,
-            'commented_by' => $model->commented_by,
+            'commented_by' => $this->commentedBy($model->commentedBy),
             'createdAt' => $this->formatDate($model->created_at),
             'updatedAt' => $this->formatDate($model->updated_at)
         ];
     }
 
-    public function user($comment)
+    protected function commentedBy($user)
     {
-        return $this->hasOne($comment, UserSerializer::class);
-    }
-
-    public function commentedBy($comment)
-    {
-        return $this->hasOne($comment, UserSerializer::class);
+        return $user ? [
+            'id' => $user->id,
+            'username' => $user->username,
+            'email' => $user->email,
+            'avatar_url' => $user->avatar_url,
+            'discussion_count' => $user->discussion_count,
+        ] : null;
     }
 }

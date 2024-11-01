@@ -5,5 +5,14 @@ justoverclock-profile-comments:
     my_cool_key: My Cool Key
 
   forum:
+    leaveComment: Leave comment
+    alertCommentCreated: Comment posted successfully
+    alertCommentError: There was an error submitting your comment. Please try again.
     commentsPageLink: Comments
     commentedBy: Posted by
+    postedOn: Posted on
+    userName: Username
+    commentCount: Comment count
+    placeholderCommentTitle: Comment title
+    placeholderComment: Write your comment...
+    createCommentModalTitle: Leave a comment to this user

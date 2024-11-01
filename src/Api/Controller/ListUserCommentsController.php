@@ -18,11 +18,14 @@ class ListUserCommentsController extends AbstractListController
         $actor = $request->getAttribute('actor');
 
         if ($actor->exists) {
+
             $userId = Arr::get($request->getQueryParams(), 'filter.userId');
-            return UserCommentsModel::query()
-                ->with('commentedBy')
+            return UserCommentsModel::all()->where('user_id', $userId);
+
+            /*$userId = Arr::get($request->getQueryParams(), 'filter.userId');
+            return UserCommentsModel::with('commentedBy')
                 ->where('user_id', $userId)
-                ->get();
+                ->get();*/
         }
 
         return [];

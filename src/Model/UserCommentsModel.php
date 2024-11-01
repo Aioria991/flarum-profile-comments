@@ -18,6 +18,7 @@ use Flarum\User\User;
 class UserCommentsModel extends AbstractModel
 {
     protected $table = 'user_comments';
+    public $timestamps = true;
 
     protected $casts = [
         'created_at' => 'datetime',
