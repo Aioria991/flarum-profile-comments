@@ -15,6 +15,7 @@ use Flarum\Api\Serializer\UserSerializer;
 use Flarum\Extend;
 use Flarum\User\User;
 use Justoverclock\ProfileComments\Api\Controller\CreateUserComment;
+use Justoverclock\ProfileComments\Api\Controller\DeleteUserComment;
 use Justoverclock\ProfileComments\Api\Controller\ListUserCommentsController;
 use Justoverclock\ProfileComments\Api\Serializers\UserCommentSerializer;
 use Justoverclock\ProfileComments\Model\UserCommentsModel;
@@ -40,5 +41,6 @@ return [
 
     (new Extend\Routes('api'))
         ->get('/user_comments', 'user_comments.list', ListUserCommentsController::class)
-        ->post('/user_comments', 'profile-comments.create', CreateUserComment::class),
+        ->post('/user_comments', 'profile-comments.create', CreateUserComment::class)
+        ->delete('/user-comment-delete/{commentId}', 'profile-comment.delete', DeleteUserComment::class),
 ];

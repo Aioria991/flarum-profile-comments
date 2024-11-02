@@ -13,7 +13,7 @@ class UserCommentSerializer extends AbstractSerializer
     {
         return [
             'id' => $model->id,
-            'related_to_user' => $model->user_id,
+            'related_to_user' => $model->user,
             'comment_title' => $model->comment_title,
             'comment' => $model->comment,
             'commented_by' => $this->commentedBy($model->commentedBy),

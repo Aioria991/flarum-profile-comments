@@ -7,5 +7,11 @@ export interface SingleCommentProps extends ComponentAttrs {
   comment: string;
   commentedBy: string;
   commentedAt: Date | string;
-  relToUser: any
+  relToUser: any;
+}
+
+export interface LeaveCommentAreaProps extends ComponentAttrs {
+  placeholder: string;
+  onInteraction?: () => void;
+  userAvatarUrl: string
 }
