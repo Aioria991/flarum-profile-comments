@@ -2,7 +2,9 @@
     "name": "justoverclock/profile-comments",
     "description": "Add a Profile comments system to Flarum",
     "keywords": [
-        "flarum"
+        "profile comments",
+        "comments",
+        "profile"
     ],
     "type": "flarum-extension",
     "license": "MIT",
@@ -26,9 +28,9 @@
             "title": "Profile Comments",
             "category": "",
             "icon": {
-                "name": "",
-                "color": "",
-                "backgroundColor": ""
+                "name": "fa fa-comment",
+                "color": "purpe",
+                "backgroundColor": "white"
             }
         },
         "flarum-cli": {
