@@ -18,26 +18,15 @@ class ListUserCommentsController extends AbstractListController
 {
     public $serializer = UserCommentSerializer::class;
 
-
-
     public $sortFields = [
         'createdAt'
     ];
 
-    /**
-     * @var UserFilterer
-     */
     protected $filterer;
-
-    /**
-     * @var UserSearcher
-     */
     protected $searcher;
-
-    /**
-     * @var UrlGenerator
-     */
     protected $url;
+    public $limit = 10;
+    public $maxLimit = 20;
 
     public function __construct(UserFilterer $filterer, UserSearcher $searcher, UrlGenerator $url)
     {
@@ -65,8 +54,14 @@ class ListUserCommentsController extends AbstractListController
         $include = $this->extractInclude($request);
 
         $userId = Arr::get($request->getQueryParams(), 'filter.userId');
+
+
+        $totalComments = UserCommentsModel::where('user_id', $userId)->count();
+
         $query = UserCommentsModel::with('commentedBy')
             ->where('user_id', $userId)
+            ->skip($offset)
+            ->take($limit)
             ->get();
 
         $criteria = new QueryCriteria($actor, $filters, $sort, $sortIsDefault);
@@ -85,8 +80,14 @@ class ListUserCommentsController extends AbstractListController
         );
 
         $results = $results->getResults();
-
         $this->loadRelations($results, $include, $request);
+
+        $document->setMeta(
+            [
+                'total' => $totalComments,
+                'totalPages' => ceil($totalComments / $limit)
+            ]
+        );
 
         return $query;
     }

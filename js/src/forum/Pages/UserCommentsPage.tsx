@@ -17,17 +17,30 @@ export default class UserCommentsPage extends UserPage {
     this.loading = false;
     // @ts-ignore
     this.comments = null;
+    this.currentPage = 1;
+    this.totalPages = 1;
     this.loadUser(this.attrs.username);
     this.getUserComments();
     this.userWhoCommented = null;
     this.refresh = false;
   }
 
-  async getUserComments(): Promise<ApiResponsePlural<UserComment>> {
+  async getUserComments(page = 1, pageSize = 10): Promise<ApiResponsePlural<UserComment>> {
     this.loading = true;
-    this.comments = await app.store.find('user_comments', {
-      filter: { userId: this.user.id() },
-    });
+
+    const paginationParams = {
+      page: {
+        number: page,
+        size: pageSize
+      },
+      filter: {
+        userId: this.user.id()
+      }
+    };
+
+    this.comments = await app.store.find('user_comments', paginationParams);
+    this.currentPage = page;
+    this.totalPages = this.comments.payload.meta.totalPages;
     this.loading = false;
     m.redraw();
   }
@@ -67,16 +80,15 @@ export default class UserCommentsPage extends UserPage {
 
   shouldRefresh() {
     this.refresh = this.refresh !== true;
-    console.log('done', this.refresh);
   }
 
   oncreate(vnode: Mithril.VnodeDOM<IUserPageAttrs, this>) {
     super.oncreate(vnode);
-    console.log('DOM updated');
-    console.log(this.user.data.attributes.avatarUrl)
   }
 
   view(): JSX.Element {
+    const meta = this.comments && this.comments.payload.meta
+    console.log(meta)
     return (
       <div className="UserPage">
         {this.user ? (
@@ -104,6 +116,30 @@ export default class UserCommentsPage extends UserPage {
                         />
                       ))}
                   </div>
+                  <div className="profile-comment-pagination">
+                    <button
+                      class="Button"
+                      disabled={this.currentPage === 1}
+                      onclick={() => {
+                        if (this.currentPage > 1) {
+                          this.getUserComments(this.currentPage - 1);
+                        }
+                      }}
+                    >
+                      Prev
+                    </button>
+                    <button
+                      class="Button"
+                      disabled={this.currentPage === this.totalPages}
+                      onclick={() => {
+                        if (this.currentPage < this.totalPages) {
+                          this.getUserComments(this.currentPage + 1);
+                        }
+                      }}
+                    >
+                      Next
+                    </button>
+                  </div>
                   {this.user.id().toString() !== app.session.user.data.id ? (
                     <LeaveCommentArea
                       onInteraction={() => {
@@ -113,12 +149,12 @@ export default class UserCommentsPage extends UserPage {
                           refreshComments: this.getUserComments.bind(this),
                         });
                       }}
-                      userAvatarUrl={this.user.data.attributes.avatarUrl}
+                      userAvatarUrl={app.session.user.data.attributes.avatarUrl || `https://placehold.co/25?text=${app.session.user.data.attributes.username.charAt(0).toUpperCase()}`}
                       placeholder={getTranslation('forum', 'leaveComment')}
                     />
                   ) : (
                     <LeaveCommentArea
-                      userAvatarUrl={this.user.data.attributes.avatarUrl}
+                      userAvatarUrl={app.session.user.data.attributes.avatarUrl || `https://placehold.co/25?text=${app.session.user.data.attributes.username.charAt(0).toUpperCase()}`}
                       placeholder={getTranslation('forum', 'cantComment')}
                     />
                   )}
