@@ -126,7 +126,7 @@ export default class UserCommentsPage extends UserPage {
                         }
                       }}
                     >
-                      Prev
+                      {getTranslation('forum', 'previousPage')}
                     </button>
                     <button
                       class="Button"
@@ -137,7 +137,7 @@ export default class UserCommentsPage extends UserPage {
                         }
                       }}
                     >
-                      Next
+                      {getTranslation('forum', 'nextPage')}
                     </button>
                   </div>
                   {this.user.id().toString() !== app.session.user.data.id ? (

@@ -18,3 +18,5 @@ justoverclock-profile-comments:
     placeholderCommentTitle: Comment title
     placeholderComment: Write your comment...
     createCommentModalTitle: Leave a comment to this user
+    previousPage: Previous
+    nextPage: Next
