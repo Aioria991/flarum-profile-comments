@@ -60,7 +60,7 @@ export default class SingleComment extends Component<SingleCommentProps> {
               <span className="profile-comment-username">
                 <div className="profile-comment-info-container">
                   <span className="profile-comment-username">
-                    <i class="fa fa-user" style={{ marginRight: '5px' }}></i> {user.username}
+                    <i class="fas fa-user" style={{ marginRight: '5px' }}></i> {user.username}
                   </span>
                 </div>
               </span>
