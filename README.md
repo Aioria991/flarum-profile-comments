@@ -23,5 +23,5 @@ php flarum cache:clear
 ## Links
 
 - [Packagist](https://packagist.org/packages/justoverclock/profile-comments)
-- [GitHub](https://github.com/justoverclock/profile-comments)
+- [GitHub](https://github.com/justoverclockl/profile-comments)
 - [Discuss](https://discuss.flarum.org/d/PUT_DISCUSS_SLUG_HERE)
