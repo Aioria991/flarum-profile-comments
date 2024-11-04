@@ -1,8 +1,13 @@
 justoverclock-profile-comments:
-  # For more details on the format
-  # Checkout https://docs.flarum.org/extend/i18n/#appendix-a-standard-key-format
   admin:
-    my_cool_key: My Cool Key
+    id: ID
+    userId: User Id
+    commentedBy: Commented By (ID)
+    title: Title
+    comment: Comment
+    delete: Action
+    previousPage: Previous
+    nextPage: Next
 
   forum:
     cantComment: Self-commenting not allowed
@@ -20,3 +25,4 @@ justoverclock-profile-comments:
     createCommentModalTitle: Leave a comment to this user
     previousPage: Previous
     nextPage: Next
+    pleaseLoginMessage: In order to see the comments, you need to login first!

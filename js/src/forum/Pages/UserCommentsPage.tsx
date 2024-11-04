@@ -88,7 +88,31 @@ export default class UserCommentsPage extends UserPage {
 
   view(): JSX.Element {
     const meta = this.comments && this.comments.payload.meta
-    console.log(meta)
+
+    if (!app.session.user) {
+      return (
+        <div className="UserPage">
+            <div className="container">
+              <div className="sideNavContainer">
+                <nav className="sideNav UserPage-nav">
+                  <ul>{listItems(this.sidebarItems().toArray())}</ul>
+                </nav>
+                <div className="sideNavOffset UserPage-content">
+                  <div className="PostsUserPage">
+                    <div className="profile-comment-actions">
+                      <h2>{app.translator.trans('justoverclock-profile-comments.forum.commentsPageLink')}</h2>
+                    </div>
+                    <div>
+                      {getTranslation('forum', 'pleaseLoginMessage')}
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+      )
+    }
+
     return (
       <div className="UserPage">
         {this.user ? (

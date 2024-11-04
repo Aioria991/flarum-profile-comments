@@ -1,6 +1,5 @@
 // @ts-nocheck
 import ExtensionPage, {ExtensionPageAttrs} from 'flarum/admin/components/ExtensionPage';
-import Button from 'flarum/common/components/Button';
 import app from 'flarum/admin/app';
 import Mithril from "mithril";
 import {ApiResponsePlural} from "flarum/common/Store";
@@ -55,12 +54,24 @@ export default class ProfileCommentsSettingPage extends ExtensionPage {
           <table class='profile-comment-admin-list-table'>
             <thead>
             <tr>
-              <th className="UserListPage-grid-header">ID</th>
-              <th className="UserListPage-grid-header">User Id</th>
-              <th className="UserListPage-grid-header">Commented By (ID)</th>
-              <th className="UserListPage-grid-header">Title</th>
-              <th className="UserListPage-grid-header">Comment</th>
-              <th className="UserListPage-grid-header">Delete</th>
+              <th className="UserListPage-grid-header">
+                {getTranslation('admin', 'id')}
+              </th>
+              <th className="UserListPage-grid-header">
+                {getTranslation('admin', 'userId')}
+              </th>
+              <th className="UserListPage-grid-header">
+                {getTranslation('admin', 'commentedBy')}
+              </th>
+              <th className="UserListPage-grid-header">
+                {getTranslation('admin', 'title')}
+              </th>
+              <th className="UserListPage-grid-header">
+                {getTranslation('admin', 'comment')}
+              </th>
+              <th className="UserListPage-grid-header">
+                {getTranslation('admin', 'delete')}
+              </th>
             </tr>
             </thead>
             <tbody>
@@ -97,7 +108,7 @@ export default class ProfileCommentsSettingPage extends ExtensionPage {
                 }
               }}
             >
-              Prev
+              {getTranslation('admin', 'previousPage')}
             </button>
             <button
               class="Button"
@@ -108,7 +119,7 @@ export default class ProfileCommentsSettingPage extends ExtensionPage {
                 }
               }}
             >
-              Next
+              {getTranslation('admin', 'nextPage')}
             </button>
           </div>
         </div>
