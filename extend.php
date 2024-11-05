@@ -33,7 +33,6 @@ return [
     (new Extend\ApiSerializer(UserCommentsModel::class))
         ->attributes(UserCommentSerializer::class)
         ->relationship('user', UserSerializer::class, 'user_id')
-        ->relationship('user', UserSerializer::class, 'user_id')
         ->relationship('commentedBy', UserSerializer::class, 'commented_by'),
 
     (new Extend\Model(UserCommentsModel::class))
