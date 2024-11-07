@@ -114,7 +114,7 @@ export default class UserCommentsPage extends UserPage {
     }
 
     return (
-      <div className="UserPage">
+      <div className="UserPage profile-comments-page">
         {this.user ? (
           <div className="container">
             <div className="sideNavContainer">
@@ -126,6 +126,24 @@ export default class UserCommentsPage extends UserPage {
                   <div className="profile-comment-actions">
                     <h2>{app.translator.trans('justoverclock-profile-comments.forum.commentsPageLink')}</h2>
                   </div>
+                  {this.user.id().toString() !== app.session.user.data.id ? (
+                    <LeaveCommentArea
+                      onInteraction={() => {
+                        app.modal.show(AddCommentModal, {
+                          userId: this.user.id(),
+                          createComment: this.createComment,
+                          refreshComments: this.getUserComments.bind(this),
+                        });
+                      }}
+                      userAvatarUrl={app.session.user.data.attributes.avatarUrl || `https://placehold.co/25?text=${app.session.user.data.attributes.username.charAt(0).toUpperCase()}`}
+                      placeholder={getTranslation('forum', 'leaveComment')}
+                    />
+                  ) : (
+                    <LeaveCommentArea
+                      userAvatarUrl={app.session.user.data.attributes.avatarUrl || `https://placehold.co/25?text=${app.session.user.data.attributes.username.charAt(0).toUpperCase()}`}
+                      placeholder={getTranslation('forum', 'cantComment')}
+                    />
+                  )}
                   <div>
                     {this.comments &&
                       this.comments.payload.data.map((comment) => (
@@ -164,24 +182,6 @@ export default class UserCommentsPage extends UserPage {
                       {getTranslation('forum', 'nextPage')}
                     </button>
                   </div>
-                  {this.user.id().toString() !== app.session.user.data.id ? (
-                    <LeaveCommentArea
-                      onInteraction={() => {
-                        app.modal.show(AddCommentModal, {
-                          userId: this.user.id(),
-                          createComment: this.createComment,
-                          refreshComments: this.getUserComments.bind(this),
-                        });
-                      }}
-                      userAvatarUrl={app.session.user.data.attributes.avatarUrl || `https://placehold.co/25?text=${app.session.user.data.attributes.username.charAt(0).toUpperCase()}`}
-                      placeholder={getTranslation('forum', 'leaveComment')}
-                    />
-                  ) : (
-                    <LeaveCommentArea
-                      userAvatarUrl={app.session.user.data.attributes.avatarUrl || `https://placehold.co/25?text=${app.session.user.data.attributes.username.charAt(0).toUpperCase()}`}
-                      placeholder={getTranslation('forum', 'cantComment')}
-                    />
-                  )}
                 </div>
               </div>
             </div>

@@ -60,6 +60,7 @@ class ListUserCommentsController extends AbstractListController
 
         $query = UserCommentsModel::with('commentedBy')
             ->where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
             ->skip($offset)
             ->take($limit)
             ->get();

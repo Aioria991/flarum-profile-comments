@@ -35,5 +35,8 @@ class UserCommentsModel extends AbstractModel
         return $this->belongsTo(User::class, 'commented_by');
     }
 
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 
 }
