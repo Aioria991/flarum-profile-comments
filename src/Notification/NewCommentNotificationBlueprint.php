@@ -8,28 +8,29 @@ use Justoverclock\ProfileComments\Model\UserCommentsModel;
 
 class NewCommentNotificationBlueprint implements BlueprintInterface
 {
+    public UserCommentsModel $userComment;
 
-    public User $user;
-
-    public function __construct(User $user)
+    public function __construct(UserCommentsModel $userComment)
     {
-        $this->user = $user;
+        $this->userComment = $userComment;
     }
 
-    public function getFromUser()
+    public function getFromUser(): User
     {
-        return $this->user;
+        return $this->userComment->commentedByUser;
     }
 
-    public function getSubject()
+    public function getSubject(): User
     {
-        return $this->user;
+        return $this->userComment->user;
     }
 
     public function getData(): array
     {
         return [
-            'comment' => 'New profile comment notification',
+            'comment_title' => $this->userComment->comment_title,
+            'comment' => $this->userComment->comment,
+            'created_at' => $this->userComment->created_at->toDateTimeString(),
         ];
     }
 

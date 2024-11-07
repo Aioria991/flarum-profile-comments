@@ -1,8 +1,13 @@
-import Notification from "flarum/forum/components/Notification";
+// @ts-nocheck
+import Notification, {INotificationAttrs} from "flarum/forum/components/Notification";
 import app from 'flarum/forum/app';
 import Mithril from "mithril";
 
 export default class NewProfileCommentNotification extends Notification {
+  oncreate(vnode: Mithril.VnodeDOM<INotificationAttrs, this>) {
+    super.oncreate(vnode);
+  }
+
   icon(): string {
     return "fas fa-comments";
   }
@@ -16,7 +21,7 @@ export default class NewProfileCommentNotification extends Notification {
   }
 
   content(): Mithril.Children {
-    return 'New profile comment from user';
+      return app.translator.trans('justoverclock-profile-comments.forum.newCommentText');
   }
 
   excerpt(): Mithril.Children {

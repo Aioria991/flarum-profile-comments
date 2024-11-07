@@ -25,8 +25,8 @@ class SendNotificationWhenCommentIsCreated
         $userComment = $event->userComment;
 
         $this->notifications->sync(
-            new NewCommentNotificationBlueprint($event->user),
-            [$event->user]
+            new NewCommentNotificationBlueprint($userComment),
+            [$userComment->user]
         );
 
     }

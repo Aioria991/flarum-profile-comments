@@ -449,6 +449,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flarum_forum_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! flarum/forum/app */ "flarum/forum/app");
 /* harmony import */ var flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flarum_forum_app__WEBPACK_IMPORTED_MODULE_2__);
 
+// @ts-nocheck
 
 
 var NewProfileCommentNotification = /*#__PURE__*/function (_Notification) {
@@ -457,6 +458,9 @@ var NewProfileCommentNotification = /*#__PURE__*/function (_Notification) {
   }
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(NewProfileCommentNotification, _Notification);
   var _proto = NewProfileCommentNotification.prototype;
+  _proto.oncreate = function oncreate(vnode) {
+    _Notification.prototype.oncreate.call(this, vnode);
+  };
   _proto.icon = function icon() {
     return "fas fa-comments";
   };
@@ -469,7 +473,7 @@ var NewProfileCommentNotification = /*#__PURE__*/function (_Notification) {
     }
   };
   _proto.content = function content() {
-    return 'New profile comment from user';
+    return flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().translator.trans('justoverclock-profile-comments.forum.newCommentText');
   };
   _proto.excerpt = function excerpt() {
     return undefined;

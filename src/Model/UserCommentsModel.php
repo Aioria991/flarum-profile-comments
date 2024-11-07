@@ -25,18 +25,14 @@ class UserCommentsModel extends AbstractModel
         'updated_at' => 'datetime',
     ];
 
-    public function getUserWhoReceiveComment(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function getUserWhoCommented(): BelongsTo
+    public function commentedByUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'commented_by');
     }
-
-    public function user() {
-        return $this->belongsTo(User::class);
-    }
-
 }
+

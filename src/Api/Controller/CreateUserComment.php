@@ -41,6 +41,8 @@ class CreateUserComment extends AbstractCreateController
         $userComment->comment = $comment;
         $userComment->save();
 
+        $userComment->load('commentedByUser', 'user');
+
         $this->dispatcher->dispatch(new ProfileCommentCreated($userComment, $actor));
 
         return $userComment;
