@@ -5,6 +5,7 @@ import Mithril from "mithril";
 import {ApiResponsePlural} from "flarum/common/Store";
 import UserComment from "../../forum/Models/UserComment";
 import {getTranslation} from "../../forum/utils/getTranslation";
+import LoadingIndicator from "flarum/common/components/LoadingIndicator";
 
 export default class ProfileCommentsSettingPage extends ExtensionPage {
 
@@ -22,11 +23,13 @@ export default class ProfileCommentsSettingPage extends ExtensionPage {
   }
 
   async deleteComment(commentId: string) {
+    this.loading = true
     await app.request({
       method: 'DELETE',
       url: `${app.forum.attribute('apiUrl')}/user-comment-delete/${commentId}`,
     });
     this.getUserComments()
+    this.loading = false;
   }
 
   async getUserComments(page = 1, pageSize = 30): Promise<ApiResponsePlural<UserComment>> {
@@ -75,7 +78,10 @@ export default class ProfileCommentsSettingPage extends ExtensionPage {
             </tr>
             </thead>
             <tbody>
-            {this.comments && this.comments.payload.data.map(comment => {
+            {this.loading && (
+              <LoadingIndicator />
+            )}
+            {!this.loading && this.comments && this.comments.payload.data.map(comment => {
               const {attributes} = comment;
               console.log(attributes)
               return (
