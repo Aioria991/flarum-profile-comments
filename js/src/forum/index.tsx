@@ -23,7 +23,7 @@ app.initializers.add('justoverclock/profile-comments', () => {
       'profileComment', {
         name: 'profileComment',
         icon: 'fas fa-comments',
-        label: 'AZZOOOOOOOOO'
+        label: 'Profile comments'
       }
     )
   })
